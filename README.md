@@ -1,9 +1,25 @@
 # First swing at Code Agents
 
-A [Slidev](https://sli.dev/) deck.
+A HackYourFuture workshop: a [Slidev](https://sli.dev/) deck and a workbook for the hands-on, published together
+on GitHub Pages.
 
 - `npm install`
-- `npm run dev`, then visit <http://localhost:3030>
+- `npm run dev`, then visit <http://localhost:3030> (the deck)
+- `npm run dev:workbook` for the workbook, `npm run test:workbook` for its tests
+
+## The published site
+
+`npm run build` writes one static site to `dist/`:
+
+| Path         | What                                                   | Source      |
+| ------------ | ------------------------------------------------------ | ----------- |
+| `/`          | landing page, routes to the slides or the workbook     | `home/`     |
+| `/slides/`   | the deck                                               | `slides.md` |
+| `/workbook/` | the students' workbook                                 | `workbook/` |
+
+Every part is built with relative paths, so the site works at a domain root or under `/<repo>/` on GitHub
+Pages without any setting. The deck uses hash URLs (`/slides/#/18`), because GitHub Pages has no per-folder
+fallback page. `.github/workflows/pages.yml` tests, builds and publishes on every push to `main`.
 
 ## Layout
 
@@ -20,14 +36,13 @@ A [Slidev](https://sli.dev/) deck.
 - `components/` holds the interactive slides (Vue + TypeScript). Each takes `:step="$clicks"`, and the
   slide's `clicks:` frontmatter sets how many steps it has. Slide data (words, probabilities) lives in a
   `<script setup>` block inside the slide's markdown, not in the component.
-- Hosting under a sub-path (GitHub Pages serves a project at `/<repo>/`): build with
-  `npx slidev build --base /<repo>/`. Asset paths in slides must go through the base: Vite rewrites `<img src="/...">`
-  and CSS `url(/...)`, but not other attributes (see the iframe on "What we build", which uses `import.meta.env.BASE_URL`).
-  The workbook is built with a relative base and `WorkbookLink` works out its URL at runtime, so both follow the deck.
+- Paths to `public/` files in slides must stay relative to the deck: Vite rewrites `<img src="/...">` and CSS
+  `url(/...)`, but not other attributes (see the iframe on "What we build", which uses `import.meta.env.BASE_URL`).
 - `public/todo/` is the reference solution of the hands-on (one HTML, one JS, one CSS file), served at
   `/todo/index.html` and shown in an iframe on the "What we build" slide.
 - `workbook/` is the students' self-paced workbook for the hands-on (Vite + TypeScript), built into
-  `dist/workbook/` by `npm run build` and served at `/workbook/`. See [workbook/README.md](workbook/README.md).
+  `dist/workbook/` by `npm run build` and served at `/workbook/`. The deck links to it with `WorkbookLink`.
+- `home/` is the landing page (plain HTML and CSS, colours from `workbook/src/styles/tokens.css`). See [workbook/README.md](workbook/README.md).
 
 To add a part, create `pages/05-something.md` and add an import block to `slides.md`:
 

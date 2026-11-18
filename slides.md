@@ -3,6 +3,8 @@ theme: seriph
 title: First swing at Code Agents
 # HackYourFuture look: colours in style.css; Barlow stands in for the brand's own font.
 colorSchema: light
+# Hash URLs (/slides/#/5): GitHub Pages has no per-folder fallback, so history URLs would 404 on reload.
+routerMode: hash
 fonts:
   sans: Barlow
   serif: Barlow

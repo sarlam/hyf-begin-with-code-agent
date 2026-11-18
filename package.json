@@ -3,8 +3,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build && npm run build:workbook",
+    "build": "npm run build:slides && npm run build:workbook && npm run build:home",
+    "build:slides": "slidev build --base ./ --out dist/slides",
     "build:workbook": "tsc -p workbook && vite build workbook",
+    "build:home": "vite build home --base ./ --outDir ../dist",
     "dev": "slidev --open",
     "dev:workbook": "vite workbook --open",
     "test:workbook": "node --test \"workbook/src/**/*.test.ts\"",

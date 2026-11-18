@@ -13,10 +13,10 @@ From the repository root, after `npm install`:
 
 | Command                  | What it does                                                         |
 | ------------------------ | -------------------------------------------------------------------- |
-| `npm run dev:workbook`   | Dev server with hot reload, opens <http://localhost:5173/workbook/>  |
+| `npm run dev:workbook`   | Dev server with hot reload, opens <http://localhost:5173/>           |
 | `npm run test:workbook`  | Unit tests, with Node's own test runner (Node 23.6+ runs `.ts` files) |
 | `npm run build:workbook` | Type check, then build into `dist/workbook/`                         |
-| `npm run build`          | Builds the deck, then the workbook (what Netlify and Vercel run)     |
+| `npm run build`          | Builds the whole site: deck, workbook, landing page (what CI runs)  |
 
 Read the tests first: `src/model/*.test.ts` say what the workbook promises (when a step counts as done,
 what happens when storage is blocked or damaged, what the export looks like).
@@ -26,7 +26,7 @@ what happens when storage is blocked or damaged, what the export looks like).
 ```text
 workbook/
 ├── index.html            the page shell: header, agent picker, footer, reset dialog
-├── vite.config.ts        base /workbook/, output to ../dist/workbook
+├── vite.config.ts        relative base, output to ../dist/workbook
 ├── tsconfig.json         type check only (tests excluded: they use node:test)
 └── src/
     ├── main.ts           entry: holds the state, saves every change, redraws, wires the buttons
@@ -78,5 +78,5 @@ both agents covered).
   a banner asking the student to download their notes. Saved data is parsed field by field, so an old or
   damaged save never breaks the page. The key is `hyf-workbook-v1`.
 - **Motion.** The confetti, the step entrance and transitions are off under `prefers-reduced-motion`.
-- **Deployment.** The workbook is plain files under `dist/workbook/`. Netlify serves existing files before the
-  deck's catch-all rewrite; `vercel.json` has an explicit `/workbook/` rewrite ahead of it.
+- **Deployment.** The workbook is plain files under `dist/workbook/`, with relative paths, published on GitHub
+  Pages with the rest of the site (see the root README).
