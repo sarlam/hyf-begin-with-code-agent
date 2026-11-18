@@ -1,0 +1,643 @@
+/* The workbook page, top to bottom: masthead, step overview, the step card and notepad, footer, overlays. */
+
+/* ---- Base ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--hyf-cream);
+  color: var(--hyf-maroon);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+:not(pre) > code,
+kbd {
+  padding: 0.05em 0.35em;
+  border-radius: 0.3em;
+  background: var(--hyf-tint);
+}
+
+kbd {
+  border: 1px solid var(--hyf-line);
+  border-bottom-width: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--hyf-red);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--hyf-yellow);
+  color: var(--hyf-maroon);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* ---- Masthead: the maroon band of the website ---- */
+.masthead {
+  background: var(--hyf-maroon);
+  color: var(--hyf-cream);
+}
+
+.masthead :focus-visible {
+  outline-color: var(--hyf-yellow);
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter);
+}
+
+.wordmark {
+  display: block;
+  width: min(15rem, 60vw);
+  height: auto;
+}
+
+.brand-title {
+  margin: 0.5rem 0 0;
+  color: var(--hyf-yellow);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.brand-title span {
+  color: var(--hyf-cream);
+  font-weight: 400;
+}
+
+.agent-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.25rem;
+  border: 2px solid var(--hyf-cream);
+  border-radius: 999px;
+}
+
+.agent-picker legend {
+  float: left; /* puts the legend inside the pill, next to the options */
+  padding: 0 0.6rem 0 0.5rem;
+  font-weight: 500;
+}
+
+.agent-picker label {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.agent-picker input {
+  position: absolute;
+  opacity: 0;
+}
+
+.agent-picker label:has(input:checked) {
+  background: var(--hyf-yellow);
+  color: var(--hyf-maroon);
+}
+
+.agent-picker label:has(input:focus-visible) {
+  outline: 3px solid var(--hyf-yellow);
+  outline-offset: 2px;
+}
+
+/* ---- Overview: progress and a chip per step ---- */
+.overview {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) 0;
+}
+
+.overview-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.overview-summary {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.progress {
+  flex: 1;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--hyf-white);
+  box-shadow: inset 0 0 0 1px var(--hyf-line);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--hyf-red);
+  transition: width 0.5s ease;
+}
+
+.step-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.8rem 0.25rem 0.25rem;
+  border: 2px solid var(--hyf-line);
+  border-radius: 999px;
+  background: var(--hyf-white);
+  color: var(--hyf-maroon);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.step-chip:hover {
+  border-color: var(--hyf-maroon);
+}
+
+.chip-number {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--hyf-tint);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.step-chip.done .chip-number {
+  background: var(--hyf-yellow);
+}
+
+.step-chip[aria-current='step'] {
+  border-color: var(--hyf-maroon);
+  background: var(--hyf-maroon);
+  color: var(--hyf-cream);
+}
+
+.step-chip[aria-current='step'] .chip-number {
+  background: var(--hyf-cream);
+  color: var(--hyf-maroon);
+}
+
+/* On phones the chips show their number only; the full title is on the card. */
+@media (max-width: 699px) {
+  .chip-label {
+    display: none;
+  }
+
+  .step-chip {
+    padding: 0.2rem;
+  }
+}
+
+/* ---- Layout: the step card, with the notepad beside it on wide screens ---- */
+.layout {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) 2rem;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.65fr) minmax(19rem, 1fr);
+    align-items: start;
+  }
+
+  .notepad {
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--hyf-white);
+  box-shadow: var(--shadow);
+}
+
+@media (min-width: 700px) {
+  .card {
+    padding: 2rem;
+  }
+}
+
+/* ---- The step card ---- */
+.step-count {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.done-badge {
+  padding: 0.1rem 0.7rem;
+  border-radius: 999px;
+  background: var(--hyf-yellow);
+  font-weight: 700;
+}
+
+.step-card h1 {
+  margin: 0.3rem 0 1.25rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+.step-card h1:focus {
+  outline: none; /* focused by code on each new step, for screen readers; not a control */
+}
+
+.step-card h1::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 0.3rem;
+  margin-top: 0.75rem;
+  background: var(--hyf-red);
+}
+
+.step-content > * {
+  margin: 0 0 1rem;
+}
+
+.content-list {
+  padding-left: 1.25rem;
+}
+
+.content-list li {
+  margin-bottom: 0.4rem;
+}
+
+.content-list li::marker {
+  color: var(--hyf-red);
+}
+
+.code {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.25rem 0.75rem;
+  align-items: start;
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  border-radius: 0.6rem;
+  background: var(--hyf-tint);
+}
+
+.code-agent {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.code pre {
+  margin: 0;
+  padding-top: 0.2rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.prompt {
+  margin: 0 0 1.25rem;
+}
+
+.prompt-label {
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.prompt blockquote {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 0.35rem solid var(--hyf-maroon);
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: var(--hyf-yellow);
+  white-space: pre-wrap;
+}
+
+.prompt-actions,
+.attempt-actions,
+.footer-actions,
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.checklist {
+  margin: 1.75rem 0 0;
+  padding: 1rem 1.25rem 1.1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: var(--hyf-cream);
+}
+
+.checklist legend {
+  float: left; /* keeps the legend inside the box */
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.check:hover {
+  background: var(--hyf-tint);
+}
+
+.check:has(input:checked) {
+  background: var(--hyf-yellow);
+}
+
+.check input {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--hyf-red);
+  cursor: pointer;
+}
+
+.step-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.step-nav #next {
+  margin-left: auto;
+}
+
+/* ---- Notepad ---- */
+.notepad h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.notepad h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.notepad-hint {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.notepad label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.notepad textarea {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid var(--hyf-line);
+  border-radius: 0.5rem;
+  background: #fffdf3;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.notepad textarea:focus-visible {
+  outline: none;
+  border-color: var(--hyf-red);
+  box-shadow: 0 0 0 3px rgb(177 41 0 / 0.2);
+}
+
+.attempts {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.attempt {
+  margin-bottom: 1rem;
+}
+
+/* ---- Buttons ---- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.15rem;
+  border: 2px solid var(--hyf-maroon);
+  border-radius: 999px;
+  background: var(--hyf-white);
+  color: var(--hyf-maroon);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background: var(--hyf-yellow);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button.small {
+  padding: 0.3rem 0.85rem;
+  font-size: 0.92rem;
+}
+
+.button.ghost {
+  border-color: var(--hyf-line);
+  background: transparent;
+}
+
+.button.ghost:hover {
+  background: var(--hyf-tint);
+}
+
+.button.primary,
+.button.danger {
+  border-color: var(--hyf-red);
+  background: var(--hyf-red);
+  color: var(--hyf-white);
+}
+
+.button.primary:hover,
+.button.danger:hover {
+  border-color: var(--hyf-maroon);
+  background: var(--hyf-maroon);
+}
+
+.button.copied {
+  border-color: var(--hyf-maroon);
+  background: var(--hyf-yellow);
+}
+
+/* ---- Footer, warning, dialog ---- */
+.storage-warning {
+  width: min(100% - 2 * var(--gutter), 76rem - 2 * var(--gutter)); /* lines up with the cards */
+  margin: 1.25rem auto 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  background: var(--hyf-yellow);
+  font-weight: 500;
+}
+
+.page-footer {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 3rem;
+  text-align: center;
+}
+
+.footer-actions {
+  justify-content: center;
+}
+
+.dialog {
+  max-width: min(28rem, calc(100vw - 2 * var(--gutter)));
+  padding: 1.5rem;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--hyf-maroon);
+  box-shadow: var(--shadow);
+}
+
+.dialog::backdrop {
+  background: rgb(94 22 0 / 0.45);
+}
+
+.dialog h2 {
+  margin-top: 0;
+}
+
+/* ---- Celebration: a toast and falling confetti ---- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 20;
+  max-width: calc(100vw - 2 * var(--gutter));
+  padding: 0.8rem 1.4rem;
+  border: 3px solid var(--hyf-yellow);
+  border-radius: 999px;
+  background: var(--hyf-maroon);
+  color: var(--hyf-cream);
+  font-weight: 700;
+  text-align: center;
+  transform: translate(-50%, 200%);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1), visibility 0.35s;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
+.confetti span {
+  position: fixed;
+  top: -1.5rem;
+  left: var(--left);
+  z-index: 15;
+  width: 0.55rem;
+  height: 1rem;
+  border-radius: 0.15rem;
+  background: var(--colour);
+  box-shadow: 0 0 0 1px rgb(94 22 0 / 0.15);
+  pointer-events: none;
+  animation: confetti-fall 1.9s ease-in var(--delay) forwards;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translate(var(--drift), 110vh) rotate(var(--spin));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

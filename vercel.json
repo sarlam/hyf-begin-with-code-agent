@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/workbook/:path*", "destination": "/workbook/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}

@@ -1,0 +1,19 @@
+{
+  // Type check only: Vite builds the browser code, Node runs the tests straight from the .ts files.
+  "compilerOptions": {
+    "target": "es2024",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["es2024", "dom", "dom.iterable"],
+    "types": ["vite/client"],
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "vite.config.ts"],
+  // The tests use node:test, typed by @types/node, which this project does not depend on.
+  "exclude": ["src/**/*.test.ts"]
+}

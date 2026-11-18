@@ -1,0 +1,23 @@
+{
+  "name": "ai-agent-first-base",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build && npm run build:workbook",
+    "build:workbook": "tsc -p workbook && vite build workbook",
+    "dev": "slidev --open",
+    "dev:workbook": "vite workbook --open",
+    "test:workbook": "node --test \"workbook/src/**/*.test.ts\"",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^53.1.0",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.33"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vite": "8.3.7"
+  }
+}
