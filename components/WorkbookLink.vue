@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Link to the student workbook (workbook/, built into <deck>/workbook/ by `npm run build`).
-// Worked out at runtime so the address shown is right wherever the deck is hosted:
-// a domain root, or /<repo>/ on GitHub Pages. Not served by `slidev` dev: use the built deck.
-const url = new URL(`${import.meta.env.BASE_URL}workbook/`, window.location.origin).href
+// Link to the student workbook. The built site puts the deck in slides/ and the workbook in workbook/
+// next to it (see README), so the workbook is always one folder up from the deck, whatever the host.
+// Not served by `slidev` dev: use the built site (`npm run build`).
+const url = new URL('../workbook/', window.location.href).href
 const label = url.replace(/^https?:\/\//, '')
 </script>
 

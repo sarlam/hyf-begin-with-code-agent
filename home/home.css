@@ -1,0 +1,111 @@
+/* Landing page: routes visitors to the slides or the workbook. Colours come from workbook/src/styles/tokens.css. */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--hyf-cream);
+  color: var(--hyf-maroon);
+  font-family: var(--font);
+}
+a {
+  color: inherit;
+}
+
+.hero {
+  padding: 3rem var(--gutter) 6rem;
+  background: var(--hyf-maroon);
+  color: var(--hyf-cream);
+  text-align: center;
+}
+.wordmark {
+  width: min(16rem, 70vw);
+}
+.hero h1 {
+  margin: 2rem 0 0;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.1;
+}
+.hero h1::after {
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 0.4rem;
+  margin: 1rem auto 0;
+  background: var(--hyf-yellow);
+}
+.lead {
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.choices {
+  display: grid;
+  gap: 1.5rem;
+  width: min(60rem, 100%);
+  margin: -3.5rem auto 0;
+  padding: 0 var(--gutter);
+}
+@media (min-width: 700px) {
+  .choices {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.choice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.75rem;
+  border-radius: var(--radius);
+  border-top: 0.4rem solid var(--hyf-red);
+  background: var(--hyf-white);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: transform 150ms ease;
+}
+.choice:hover {
+  transform: translateY(-4px);
+}
+.choice:focus-visible {
+  outline: 3px solid var(--hyf-red);
+  outline-offset: 3px;
+}
+.icon {
+  font-size: 2.5rem;
+}
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.what {
+  flex: 1;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.go {
+  align-self: start;
+  margin-top: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--hyf-red);
+  color: var(--hyf-white);
+  font-weight: 700;
+}
+
+.credits {
+  margin-top: auto;
+  padding: 3rem var(--gutter) 2rem;
+  text-align: center;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice {
+    transition: none;
+  }
+}
