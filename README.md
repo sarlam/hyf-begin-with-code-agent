@@ -17,6 +17,8 @@ A [Slidev](https://sli.dev/) deck.
 - `global-top.vue` puts the small HackYourFuture wordmark on every slide but the cover (`HyfLogo` component).
   `public/logos/` holds Paul's wordmark, copied from their design system: keep its brand rules (see the comment on
   the cover in `slides.md`).
+- `setup/shortcuts.ts` makes ↓ and ↑ step through animations like → and ←, so the whole deck is one linear
+  path. Shift + → / ← still jump a whole slide.
 - `components/` holds the interactive slides (Vue + TypeScript). Each takes `:step="$clicks"`, and the
   slide's `clicks:` frontmatter sets how many steps it has. Slide data (words, probabilities) lives in a
   `<script setup>` block inside the slide's markdown, not in the component.
