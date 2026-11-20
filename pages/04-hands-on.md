@@ -136,6 +136,7 @@ Playwright MCP drives a live browser while chatting; Playwright Test is a test r
 ---
 
 <StepGoal :step="5" />
+<p class="mt-10 text-xl">⚠️ <b>opencode has no safety check in auto mode</b>: it runs whatever it decides.</p>
 
 <!--
 Switch to auto: Claude Code, Shift+Tab until the mode reads auto (or restart with `claude --permission-mode auto`); opencode, delete opencode.jsonc and restart.
