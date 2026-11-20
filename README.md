@@ -6,6 +6,7 @@ on GitHub Pages.
 - `npm install`
 - `npm run dev`, then visit <http://localhost:3030> (the deck)
 - `npm run dev:workbook` for the workbook, `npm run test:workbook` for its tests
+- `npm run test:slides` for the tests of the hands-on step data (`pages/hands-on.test.ts`)
 
 ## The published site
 
@@ -38,7 +39,14 @@ fallback page. `.github/workflows/pages.yml` tests, builds and publishes on ever
 - `components/` holds the interactive slides (Vue + TypeScript). Each takes `:step="$clicks"` (or, for small
   pieces such as `SeeChecks`, what to show: `:shown`, `:progress`), and the slide's `clicks:` frontmatter sets how
   many steps it has. Slide data (words, probabilities) lives in a `<script setup>` block inside the slide's
-  markdown, not in the component.
+  markdown, not in the component. The hands-on step components below are the exception: their `step` is the
+  step number, the clicks come in as `:clicks`, and they read their text from `pages/hands-on.ts` themselves.
+- The hands-on steps (Part 3) are two slides each, built from one typed file, `pages/hands-on.ts`: the Goal slide
+  (`<StepGoal :step="1" />`: the progress bar, Goal and Why) and the "Do it" slide (`<StepDoIt :step="1"
+  :clicks="$clicks" />` with `clicks: 3`: the prompt's key line and three "You should see" checks). To change a
+  step's words, edit `pages/hands-on.ts`; the full prompts and commands live in the workbook. `PhaseTrack` draws
+  the progress bar, one stop per step from Step 0 · Set up to Step 5 · Auto. Step 5's second slide is the whole
+  ticket, written in the markdown.
 - Paths to `public/` files in slides must stay relative to the deck: Vite rewrites `<img src="/...">` and CSS
   `url(/...)`, but not other attributes (see the iframe on "What we build", which uses `import.meta.env.BASE_URL`).
 - `public/todo/` is the reference solution of the hands-on (one HTML, one JS, one CSS file), served at

@@ -1,10 +1,14 @@
 <script setup lang="ts">
-// A step's Goal headline and its Why line. Sized by the parent's font size (everything is in em).
-defineProps<{ goal: string, why: string }>()
+// A hands-on step's first slide: the progress bar, then its Goal headline and its Why line.
+import { STEPS } from '../pages/hands-on'
+
+const props = defineProps<{ step: number }>()
+const { goal, why } = STEPS[props.step]
 </script>
 
 <template>
-  <div>
+  <PhaseTrack :step="step" />
+  <div class="mt-24 text-6xl">
     <p class="label">Goal</p>
     <p class="goal">{{ goal }}</p>
     <p class="why"><b>Why:</b> {{ why }}</p>
