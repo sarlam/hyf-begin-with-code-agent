@@ -34,7 +34,7 @@ p {
   border-radius: 0.6rem;
   background: var(--hyf-maroon);
   color: var(--hyf-cream);
-  font-family: ui-monospace, monospace;
+  font-family: var(--slidev-code-font-family, monospace); /* the deck's mono font (fonts.mono) */
   font-size: 1.3rem;
   line-height: 1.5;
 }

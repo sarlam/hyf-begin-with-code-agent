@@ -7,6 +7,7 @@ routerMode: hash
 fonts:
   sans: Barlow
   serif: Barlow
+  mono: Fira Code
   weights: '400,500,700'
 themeConfig:
   primary: '#b12900'
@@ -138,6 +139,7 @@ import { PHASES } from './components/PhaseTrack.vue'
 <div class="absolute inset-0 flex flex-col justify-center px-20" :style="{ background: PHASES[PLAN.phase].bg, color: PHASES[PLAN.phase].fg }">
   <p class="text-xl font-bold">{{ PLAN.title }}</p>
   <GoalWhy :goal="PLAN.goal" :why="PLAN.why" class="mt-6 text-6xl" />
+  <HyfLogo class="absolute bottom-4 left-6 w-28 opacity-80" />
 </div>
 
 ---
@@ -163,6 +165,7 @@ import { PHASES } from './components/PhaseTrack.vue'
 <div class="absolute inset-0 flex flex-col justify-center px-20" :style="{ background: PHASES[TEST.phase].bg, color: PHASES[TEST.phase].fg }">
   <p class="text-xl font-bold">{{ TEST.title }}</p>
   <GoalWhy :goal="TEST.goal" :why="TEST.why" class="mt-6 text-6xl" />
+  <HyfLogo class="absolute bottom-4 left-6 w-28 opacity-80" />
 </div>
 
 ---

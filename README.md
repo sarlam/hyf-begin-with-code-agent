@@ -31,7 +31,8 @@ fallback page. `.github/workflows/pages.yml` tests, builds and publishes on ever
   and the components. The font (Barlow, standing in for the brand font) is set in the headmatter of `slides.md`.
 - `layouts/presenter.vue` is the presenter slide (slide 2), the only slide in Paul's own brand (colours, self-hosted
   fonts in `public/fonts/paul/` with their OFL licences). Its bio, links and photo are set in `pages/01-introduction.md`.
-- `global-top.vue` puts the small HackYourFuture wordmark on every slide but the cover (`HyfLogo` component).
+- `global-top.vue` puts the small HackYourFuture wordmark on every slide but the cover, the presenter slide and
+  `layout: full` slides, which draw their own in their own colour (`HyfLogo` component).
   `public/logos/` holds Paul's wordmark, copied from their design system: keep its brand rules (see the comment on
   the cover in `slides.md`).
 - `setup/shortcuts.ts` makes ↓ and ↑ step through animations like → and ←, so the whole deck is one linear
