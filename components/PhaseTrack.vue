@@ -12,16 +12,17 @@ export const PHASES = [
 <script setup lang="ts">
 // Where the students stand: stops before `current` are full, `current` is filled up to `progress` (0 to 1).
 // Horizontal: a slim bar across the top. Vertical: a rail down the left, the current stop expanded with `title`.
-withDefaults(defineProps<{ current: number, progress?: number, vertical?: boolean, title?: string }>(), {
+const props = withDefaults(defineProps<{ current: number, progress?: number, vertical?: boolean, title?: string }>(), {
   progress: 0,
 })
+const fill = (i: number) => (i < props.current ? 100 : i === props.current ? props.progress * 100 : 0)
 </script>
 
 <template>
   <ol class="track" :class="{ vertical }">
     <li v-for="(p, i) in PHASES" :key="p.name" :class="{ now: i === current, done: i < current }">
       <span class="name">{{ p.name }}</span>
-      <span class="bar"><span :style="{ width: `${i < current ? 100 : i === current ? progress * 100 : 0}%` }" /></span>
+      <span class="bar"><span :style="{ width: `${fill(i)}%` }" /></span>
       <span v-if="vertical && i === current && title" class="title">{{ title }}</span>
     </li>
   </ol>
@@ -39,7 +40,7 @@ withDefaults(defineProps<{ current: number, progress?: number, vertical?: boolea
 .track li {
   flex: 1;
   margin: 0;
-  opacity: 0.45;
+  opacity: 0.7; /* 5.3:1 on cream; 0.45 fell under WCAG AA */
 }
 .track li.now,
 .track li.done {
