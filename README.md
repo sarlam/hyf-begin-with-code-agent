@@ -39,7 +39,8 @@ fallback page. `.github/workflows/pages.yml` tests, builds and publishes on ever
 - `components/` holds the interactive slides (Vue + TypeScript). Each takes `:step="$clicks"` (or, for small
   pieces such as `SeeChecks`, what to show: `:shown`, `:progress`), and the slide's `clicks:` frontmatter sets how
   many steps it has. Slide data (words, probabilities) lives in a `<script setup>` block inside the slide's
-  markdown, not in the component.
+  markdown, not in the component. The hands-on step components below are the exception: their `step` is the
+  step number, the clicks come in as `:clicks`, and they read their text from `pages/hands-on.ts` themselves.
 - The hands-on steps (Part 3) are two slides each, built from one typed file, `pages/hands-on.ts`: the Goal slide
   (`<StepGoal :step="1" />`: the progress bar, Goal and Why) and the "Do it" slide (`<StepDoIt :step="1"
   :clicks="$clicks" />` with `clicks: 3`: the prompt's key line and three "You should see" checks). To change a
