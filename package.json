@@ -9,7 +9,6 @@
     "build:home": "vite build home --base ./ --outDir ../dist",
     "dev": "slidev --open",
     "dev:workbook": "vite workbook --open",
-    "dev:variants": "slidev variants.md --open",
     "test:workbook": "node --test \"workbook/src/**/*.test.ts\"",
     "export": "slidev export"
   },
