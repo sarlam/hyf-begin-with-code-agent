@@ -6,7 +6,6 @@ on GitHub Pages.
 - `npm install`
 - `npm run dev`, then visit <http://localhost:3030> (the deck)
 - `npm run dev:workbook` for the workbook, `npm run test:workbook` for its tests
-- `npm run dev:variants` for the preview of three layouts for the hands-on steps (`variants.md`, issue #5)
 
 ## The published site
 
@@ -40,8 +39,6 @@ fallback page. `.github/workflows/pages.yml` tests, builds and publishes on ever
   pieces such as `SeeChecks`, what to show: `:shown`, `:progress`), and the slide's `clicks:` frontmatter sets how
   many steps it has. Slide data (words, probabilities) lives in a `<script setup>` block inside the slide's
   markdown, not in the component.
-- `variants.md` is a preview deck for issue #5 (not built or published): layouts for the hands-on steps, to pick
-  one. `variants/steps.ts` holds the step text its layouts share, so they differ in layout only.
 - Paths to `public/` files in slides must stay relative to the deck: Vite rewrites `<img src="/...">` and CSS
   `url(/...)`, but not other attributes (see the iframe on "What we build", which uses `import.meta.env.BASE_URL`).
 - `public/todo/` is the reference solution of the hands-on (one HTML, one JS, one CSS file), served at
