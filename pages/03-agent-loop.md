@@ -17,13 +17,14 @@ Tools are things like: read a file, edit a file, run a command, open a browser. 
 -->
 
 ---
-clicks: 15
+clicks: 19
 ---
 
 ## The agent loop
 
 <script setup>
 const tools = [
+  { call: 'read sum.test.js', result: 'add(3, 2) should equal 5' },
   { call: 'read sum.js', result: 'return a - b' },
   { call: 'edit sum.js: a - b → a + b', result: 'file saved' },
   { call: 'run npm test', result: '✓ 1 passed' },
