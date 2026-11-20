@@ -92,8 +92,9 @@ const STEPS: { kind: Kind, lines: number }[] = [
 .history li {
   display: flex;
   gap: 0.5rem;
-  padding: 0.1rem 0.4rem;
+  padding: 0.05rem 0.4rem;
   margin: 0;
+  line-height: 1.4; /* the four-tool run fills ten lines: keep them inside the frame */
   border-radius: 0.3rem;
   opacity: 0.6;
   animation: appear 0.35s ease;
