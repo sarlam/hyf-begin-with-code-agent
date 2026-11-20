@@ -10,6 +10,7 @@
     "dev": "slidev --open",
     "dev:workbook": "vite workbook --open",
     "test:workbook": "node --test \"workbook/src/**/*.test.ts\"",
+    "test:slides": "node --test \"pages/**/*.test.ts\"",
     "export": "slidev export"
   },
   "dependencies": {
