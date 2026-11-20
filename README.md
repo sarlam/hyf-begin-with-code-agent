@@ -6,6 +6,7 @@ on GitHub Pages.
 - `npm install`
 - `npm run dev`, then visit <http://localhost:3030> (the deck)
 - `npm run dev:workbook` for the workbook, `npm run test:workbook` for its tests
+- `npm run dev:variants` for the preview of three layouts for the hands-on steps (`variants.md`, issue #5)
 
 ## The published site
 

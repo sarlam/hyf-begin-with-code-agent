@@ -10,7 +10,8 @@
     "dev": "slidev --open",
     "dev:workbook": "vite workbook --open",
     "test:workbook": "node --test \"workbook/src/**/*.test.ts\"",
-    "export": "slidev export"
+    "export": "slidev export",
+    "dev:variants": "slidev variants.md --open"
   },
   "dependencies": {
     "@slidev/cli": "^53.1.0",
